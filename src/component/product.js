@@ -1,4 +1,6 @@
 import React from "react";
+
+
 const Mobil = (hamdeh) => {
   return (
     <div className='card'>
