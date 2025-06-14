@@ -1,7 +1,23 @@
 import React from "react";
-
+import { useState } from "react";
 
 const Mobil = (hamdeh) => {
+  const [counter, setCounter] = useState(0);
+      const hitung = () => {
+          setCounter(counter + 1);
+      }
+      const kurang = () =>{
+          setCounter(counter - 1);
+      }
+      let info;
+      if (counter === 0) {
+          info = <div className="keranjang" onClick={hitung}>add </div>       
+      }
+      else{
+          info= <div className="show-keranjang"><button onClick={hitung} className="button"> [+] </button>
+                  <d>ini hitungan {counter}</d>
+                  <button onClick={kurang} className="button"> [-] </button></div>
+      }
   return (
     <div className='card'>
       <img style={{
@@ -17,8 +33,13 @@ const Mobil = (hamdeh) => {
           {hamdeh.deskripsi_mobil}
         </p>
       </div>
+      <div className="card-keranjang">
+        {info}
+      </div>
     </div>
   );
 };
 
 export default Mobil;
+
+//2:26
