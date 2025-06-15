@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-
 const Mobil = (hamdeh) => {
   const [counter, setCounter] = useState(0);
       const hitung = () => {
@@ -11,11 +10,11 @@ const Mobil = (hamdeh) => {
       }
       let info;
       if (counter === 0) {
-          info = <div className="keranjang" onClick={hitung}>add </div>       
+          info = <div className="keranjang show-keranjang" onClick={hitung}>add </div>       
       }
       else{
-          info= <div className="show-keranjang"><button onClick={hitung} className="button"> [+] </button>
-                  <d>ini hitungan {counter}</d>
+          info= <div className="keranjang"><button onClick={hitung} className="button"> [+] </button>
+                  <d>{counter}</d>
                   <button onClick={kurang} className="button"> [-] </button></div>
       }
   return (
