@@ -2,16 +2,16 @@
 import React from 'react';
 import Mobil from './product'; // Make sure this path is correct
 
-const ProductList = ({ products }) => {
+const ProductList = ({ products,onDeleteProduct,onEditProduct }) => {
   return (
     <div className="product-list">
       <div className='cards'>
         {products.map(product => (
           <Mobil 
             key={product.id} 
-            nama_mobil={product.nama} 
-            ling_poto={product.imageURL} 
-            deskripsi_mobil={product.deskripsi} 
+            product = {product}
+            onDeleteProduct = {onDeleteProduct}
+            onEditProduct = {onEditProduct}
           />
         ))}
       </div>

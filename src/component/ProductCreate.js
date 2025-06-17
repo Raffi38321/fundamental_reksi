@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 
-const ProductCreate = () => {
+const ProductCreate = ({onCreateProduct}) => {
     const inisialState = {
         nama:"",
         deskripsi:"",
@@ -20,7 +20,7 @@ const ProductCreate = () => {
 
     const handleSubmit=(e)=>{
         e.preventDefault()
-        console.log(formData)
+        onCreateProduct(formData)
         setFormData(inisialState)
     }
   return (
@@ -41,7 +41,7 @@ const ProductCreate = () => {
                 <input type='text' className="add-input-text" placeholder='deskripsi' name='deskripsi' value={formData.deskripsi} onChange={handleChange}/>
             </div>
             <div className='form-group'>
-                <input type='text'  className="add-input-text" placeholder='link gambar' name='imageURL' value={formData.imgURL} onChange={handleChange}/>
+                <input type='text'  className="add-input-text" placeholder='link gambar' name='imgURL' value={formData.imgURL} onChange={handleChange}/>
             </div>
             <input type='submit' className='edit-input-submit add'></input>
         </form>}

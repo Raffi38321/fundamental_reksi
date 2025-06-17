@@ -1,40 +1,68 @@
 import React from "react";
 import { useState } from "react";
-const Mobil = (hamdeh) => {
+import { MdDelete } from "react-icons/md";
+import { CiEdit } from "react-icons/ci";
+import ProductEdit from "./ProductEdit";
+
+const Mobil = ({product,onDeleteProduct,onEditProduct}) => {
   const [counter, setCounter] = useState(0);
-      const hitung = () => {
-          setCounter(counter + 1);
-      }
-      const kurang = () =>{
-          setCounter(counter - 1);
-      }
-      let info;
-      if (counter === 0) {
-          info = <div className="keranjang show-keranjang" onClick={hitung}>add </div>       
-      }
-      else{
-          info= <div className="keranjang"><button onClick={hitung} className="button"> [+] </button>
-                  <d>{counter}</d>
-                  <button onClick={kurang} className="button"> [-] </button></div>
-      }
+  const {id,nama,deskripsi,imageURL} = product;
+  const [showEdit,setShowEdit] = useState(false);
+  const hitung = () => {
+    setCounter(counter + 1);
+  }
+  const kurang = () =>{
+    setCounter(counter - 1);
+  }
+  let info;
+  if (counter === 0) {
+    info = <div className="keranjang show-keranjang" onClick={hitung}>add </div>       
+  }
+  else{
+    info= <div className="keranjang"><button onClick={hitung} className="button"> [+] </button>
+          <span>{counter}</span>
+          <button onClick={kurang} className="button"> [-] </button></div>
+  }
+
+  const handleDelete = () => {
+    onDeleteProduct(id); // Tidak dipanggil saat render!
+  };
+
+  const handleShow = () =>{
+    setShowEdit(!showEdit)
+  }
+
+  const handleSubmit= (id,data)=>{
+    setShowEdit(!showEdit)
+    onEditProduct(id,data)
+  }
+
+  const cancelEdit=()=>{
+    setShowEdit(!showEdit)
+  }
   return (
     <div className='card'>
+      {showEdit? <ProductEdit product={product} onEditProduct={handleSubmit} cancelEdit={cancelEdit}/> :(<><div className="edit-delete">
+        <MdDelete className="icon-edit" onClick={handleDelete}/>
+        <CiEdit className="icon-delete" onClick={handleShow}/>
+      </div>
       <img style={{
         width: "100%",
         height: "200px",
         borderRadius: '10px 10px 0px 0px' 
-      }} src={hamdeh.ling_poto}  alt="car"/>
+      }} src={imageURL}  alt="car"/>
       <div className='container'>
         <h4>
-          <b>{hamdeh.nama_mobil}</b>
+          <b>{nama}</b>
         </h4>
         <p>
-          {hamdeh.deskripsi_mobil}
+          {deskripsi}
         </p>
       </div>
       <div className="card-keranjang">
         {info}
-      </div>
+      </div></>)}
+      
     </div>
   );
 };
