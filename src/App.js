@@ -2,26 +2,39 @@
 import './App.css';
 import ProductList from './component/ProductList';
 import { useState } from 'react';
-import Products from './product/Product';
 import ProductCreate from './component/ProductCreate'
+import axios from 'axios';
+import { useEffect } from 'react';
 
 function App() {
-  const [products, setProducts] = useState(Products); // Changed variable name to plural for clarity
+  const [products, setProducts] = useState([]); // Changed variable name to plural for clarity
+  const fetchData = async ()=>{
+    const response = await axios.get('http://127.0.0.1:3001/products')
+    setProducts(response.data)
+  }
+  
+  useEffect(()=>{
+    fetchData()
+  },[])
 
-  const onEditProduct = (id,data)=>{
+  const onEditProduct = async (id,data)=>{
+    const response = await axios.put(`http://127.0.0.1:3001/products/${id}`,data)
     const updatedProduct = products.map((prod)=>{
       if(id===prod.id){
-        return {...prod,...data}
+        return {...prod,...response.data}
       }
       return prod
     })
     setProducts(updatedProduct)
   }
-  const onCreateProduct = (product)=>{
-    setProducts([...products,{id:Math.round(Math.random()*7777),...product}])
+  const onCreateProduct = async (product)=>{
+    const response = await axios.post('http://127.0.0.1:3001/products',product)
+    setProducts([...products,response.data])
   }
-  const onDeleteProduct = (id) => {
+  const onDeleteProduct = async (id) => {
+    await axios.delete(`http://127.0.0.1:3001/products/${id}`)
     setProducts(prevProducts => prevProducts.filter(prod => prod.id !== id));
+    
   };
 
   return (
