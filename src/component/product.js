@@ -3,11 +3,15 @@ import { useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
 import ProductEdit from "./ProductEdit";
+import { useContext } from "react";
+import productContext from '../context/products';
 
-const Mobil = ({product,onDeleteProduct,onEditProduct}) => {
+const Mobil = ({product}) => {
   const [counter, setCounter] = useState(0);
   const {id,nama,deskripsi,imageURL} = product;
   const [showEdit,setShowEdit] = useState(false);
+  const {onDeleteProduct} = useContext(productContext)
+  const {onEditProduct} = useContext(productContext)
   const hitung = () => {
     setCounter(counter + 1);
   }
